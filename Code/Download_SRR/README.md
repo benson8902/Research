@@ -25,3 +25,8 @@
       ex:
       1. fastqc -t 16 -o fastqc SRR******_1.fastq.gz
         -t => how many threads you want to use in CPU
+
+
+**Notice:**
+
+    SRR_Acc_List.txt need to add new line, or the last file will not be excute.
