@@ -1,18 +1,23 @@
-Some bash file need to make corrections every time!
+**Some bash file need to make corrections every time!**
 
-Step 1 Download SRR file 
+**First of all:**
+
+    Need to check whether sratoolkit working.
+    『export PATH=$PATH:$HOME/sratoolkit.3.0.1-ubuntu64/bin』
+
+**Step 1 Download SRR file** 
 
     ex:
     1. prefetch --option-file filename.txt
     or
     2. nohup prefetch --option-file "filename.txt" > nohup.out 2>&1 &
 
-Step 2 SRA -> fastq
+**Step 2 SRA -> fastq**
 
     ex:
     1. nohup fastq-dump --split-files --gzip SRR*******
 
-Step 3 fastqc
+**Step 3 fastqc**
 
   Quality check
     if there is SRR******_1.fastq.gz, SRR******_2.fastq.gz, SRR******_3.fastq.gz after fastq, you need to check which one is Read1, Read2 and Index1.
