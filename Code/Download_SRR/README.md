@@ -1,9 +1,10 @@
-**Some bash file need to make corrections every time!**
+### Some bash file need to make corrections every time!
 
 **First of all:**
 
-    Need to check whether sratoolkit working.
-    『export PATH=$PATH:$HOME/sratoolkit.3.0.1-ubuntu64/bin』
+>    Need to check whether sratoolkit working.
+> 
+>    『export PATH=$PATH:$HOME/sratoolkit.3.0.1-ubuntu64/bin』
 
 **Step 1 Download SRR file** 
 
@@ -14,31 +15,33 @@
 
 **Step 2 SRA -> fastq**
 
-  Excute 『fastq_dump.sh』
+  `Excute 『fastq_dump.sh』`
   
     ex:
     1. nohup fastq-dump --split-files --gzip SRR*******
 
 **Step 3 fastqc : Quality Check**
 
-  Excute 『fastqc.sh』
+  `Excute 『fastqc.sh』`
 
-  ★If there is SRR******_1.fastq.gz, SRR******_2.fastq.gz, SRR******_3.fastq.gz after fastq, you need to check which one is Read1, Read2 and Index1.
-    
+>  ★If there is SRR******_1.fastq.gz, SRR******_2.fastq.gz, SRR******_3.fastq.gz after fastq, you need to check which one is Read1, Read2 and Index1.
+> 
+>  ★After fastqc, rename fastq file
+>  
+  `Excute 『rename_fastq.sh』`
+  
       ex:
       1. fastqc -t 16 -o fastqc SRR******_1.fastq.gz
         -t => how many threads you want to use in CPU
 
-  ★After fastqc, rename fastq file
-  
-  Excute 『rename_fastq.sh』
 
 **Step 4 Excute 10X Genomics Cell Ranger**
+
+>  ★If there are multiple samples of a single individual then we excute cellranger aggr
 
     following:
     https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct
 
-  ★If there are multiple samples of a single individual then we excute cellranger aggr
 
 **Notice:**
 
