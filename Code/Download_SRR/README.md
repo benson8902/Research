@@ -1,5 +1,6 @@
 ### Some bash file need to make corrections every time!
 
+
 **First of all:**
 
 >    Need to check whether sratoolkit working.
@@ -46,3 +47,22 @@
 **Notice:**
 
     SRR_Acc_List.txt need to add new line, or the last file will not be excute.
+
+
+**Version**
+>
+>**Anaconda:** Python 3.9.7
+>
+>**numpy:** 1.22.3
+>
+>**scipy:** 1.9.1
+>
+>**pysam:** 0.17.0
+>
+>**h5py:** 3.6.0
+>
+>**pandas:** 1.3.5
+>
+>**STAR:** 2.7.2a
+>
+>**samtools:** samtools 1.12
