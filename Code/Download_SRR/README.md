@@ -10,9 +10,9 @@
 **Step 1 Download SRR file** 
 
     ex:
-    1. prefetch --option-file filename.txt
+    1. prefetch -p --option-file SRR_Acc_List.txt
     or
-    2. nohup prefetch --option-file "filename.txt" > nohup.out 2>&1 &
+    2. nohup prefetch -p --option-file SRR_Acc_List.txt > nohup.out 2>&1 &
 
 **Step 2 SRA -> fastq**
 
