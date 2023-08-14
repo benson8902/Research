@@ -2,9 +2,9 @@
 
 export PATH=/media/data/scRNA_analysis/cellranger-7.1.0:$PATH
 
-for ((i=59; i<=91; i++))
+for ((i=28; i<=31; i++))
 do
-    SRR="SRR196879${i}"
+    SRR="SRR133764${i}"
     if [ ! -d "${SRR}" ]; then
             echo "Directory ${SRR} doesn't exist, skipping!"
             continue
