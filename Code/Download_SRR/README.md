@@ -49,7 +49,7 @@
 
 **Notice:**
 
-    SRR_Acc_List.txt need to add new line, or the last file will not be excute.
+    SRR_Acc_List.txt need to add new line, or the last file may not be excute.
 
 
 **Version**
