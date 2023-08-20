@@ -8,7 +8,7 @@
 >    『export PATH=$PATH:$HOME/sratoolkit.3.0.1-ubuntu64/bin』
 
 **Step 1 Download SRR file** 
->    if file size too big, you need to use "--max-size 100G"
+>    If file size too big, you need to use "--max-size 100G"
 >
     ex:
     1. prefetch -p --option-file SRR_Acc_List.txt
