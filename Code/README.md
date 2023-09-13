@@ -8,3 +8,10 @@
 
 **Step 3 Remove Batch Effect**
 >  ★
+
+
+**Note**
+>    CITE-seq => 抗原
+>    GEX => Gene Expression
+>    Seurat 可以處理CITE-seq
+>    Scanpy 不可以處理CITE-seq
