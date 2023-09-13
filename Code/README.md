@@ -1,8 +1,8 @@
 **Step 1 Preprocessing** 
->    Filter preocessed data
+>    1. Filter preocessed data
 >
 > 
->    Fill in age, gender, ID into h5ad file
+>    2. Fill in age, gender, ID into h5ad file
 >
 > 
 >    ★Confrim each data situation
@@ -15,10 +15,10 @@
 
 
 **Note**
->    CITE-seq => 抗原
+>    1. CITE-seq => 抗原
 > 
->    GEX => Gene Expression
+>    2. GEX => Gene Expression
 >
->    Seurat 可以處理CITE-seq
+>    3. Seurat 可以處理CITE-seq
 >
->    Scanpy 不可以處理CITE-seq
+>    4. Scanpy 不可以處理CITE-seq
