@@ -17,6 +17,8 @@
 >    BioManager need to check whether the permission is gonna Enable system administrator rights, or you may get warning.
 >
 >    If you need to download GitHub package, need to get token. And the token has an expiration date.
+>
+>    需要做Correlation裡面負相關 & 正相關 各別的KEGG
 
 
 **Note**
