@@ -81,16 +81,17 @@ plot_results <- function(results, result_type, type) {
 }
 
 
+# GO & KEGG enrichment result
+    #ID：GO term的ID。
+    #Description：GO term的描述，說明這個GO term代表的生物學過程、細胞組分或分子功能。
+    #GeneRatio：在你的基因集中，有多少基因和這個GO term相關。
+    #BgRatio：在背景基因集中，有多少基因和這個GO term相關。
+    #pvalue：p值，用來評估這個GO term是否顯著富集在你的基因集中。
+    #p.adjust：經過多重檢定校正後的p值。
+    #qvalue：q值，另一種經過多重檢定校正後的p值。
+    #Count：在你的基因集中，有多少基因和這個GO term相關。
+
 # 將top200 gene的term提取出來取聯集看一下GeneRatio的部分抓出來去做heatmap看一下negative和positive之間有沒有可證明性
-  # GO & KEGG enrichment result
-      #ID：GO term的ID。
-      #Description：GO term的描述，說明這個GO term代表的生物學過程、細胞組分或分子功能。
-      #GeneRatio：在你的基因集中，有多少基因和這個GO term相關。
-      #BgRatio：在背景基因集中，有多少基因和這個GO term相關。
-      #pvalue：p值，用來評估這個GO term是否顯著富集在你的基因集中。
-      #p.adjust：經過多重檢定校正後的p值。
-      #qvalue：q值，另一種經過多重檢定校正後的p值。
-      #Count：在你的基因集中，有多少基因和這個GO term相關。
 create_heatmap <- function(result_N, result_P){
   # 初始化一個空的向量來存儲結果
   term_Description_N <- c()
