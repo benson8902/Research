@@ -71,12 +71,12 @@ plot_results <- function(results, result_type, type) {
       warning(paste("No valid", result_type, "results for", celltype))
       return()
     }
-    # 繪製點狀圖
-    p = dotplot(result, showCategory = 10) + ggtitle(paste0(celltype, " ", type, " ", result_type, " enrichment"))
+    # 繪製dotplot
+    p = dotplot(result, showCategory = 10, font.size = 10) + ggtitle(paste0(celltype, " ", type, " ", result_type, " enrichment"))
     # 指定保存位置
     filepath <- paste0("C:/Users/benson/Desktop/Research/Result_picture/GSE174188/Pearson/Top200/", result_type, "/", type, "/", celltype, "_", tolower(type), "_", result_type, "_enrichment.png")
     # 保存圖片
-    ggsave(filepath, plot = p)
+    ggsave(filepath, plot = p, width = 5, height = 6)
   })
 }
 
