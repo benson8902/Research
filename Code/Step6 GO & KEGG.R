@@ -6,6 +6,7 @@ library(org.Hs.eg.db)
 library(GO.db)
 # 載入ggplot2套件
 library(ggplot2)
+library(pheatmap)
 # Github token until Wed, Jan 17 2024
 #Sys.setenv(GITHUB_PAT = "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")
 # 安裝createKEGGdb包（用於創建KEGG.db的包）
@@ -91,8 +92,9 @@ plot_results <- function(results, result_type, type) {
     #qvalue：q值，另一種經過多重檢定校正後的p值。
     #Count：在你的基因集中，有多少基因和這個GO term相關。
 
+# GeneRatio heatmap
 # 將top200 gene的term提取出來取聯集看一下GeneRatio的部分抓出來去做heatmap看一下negative和positive之間有沒有可證明性
-create_heatmap <- function(result_N, result_P){
+create_heatmap_GeneRatio <- function(result_N, result_P){
   # 初始化一個空的向量來存儲結果
   term_Description_N <- c()
   # 將每個cell type pvalue最小的10個go term合併在一起
@@ -128,7 +130,6 @@ create_heatmap <- function(result_N, result_P){
   
   # 建立一個list要放N個cell type的GeneRatio
   term_GeneRatio_N <- list()
-  
   # 把這個description與go_result match的GeneRatio挑出來
   for(celltype in names(result_N)){
     result <- result_N[[celltype]]@result
@@ -162,8 +163,73 @@ create_heatmap <- function(result_N, result_P){
   pheatmap(t(matrix_heatmap), cluster_rows = TRUE, cluster_cols = FALSE, fontsize_row = 8, angle_col = 45)
 }
 
-
-
+# P.adjust heatmap
+# 有取 -log10
+# 將top200 gene的term提取出來取聯集看一下P.adjust的部分抓出來去做heatmap看一下negative和positive之間有沒有可證明性
+create_heatmap_Pvalue <- function(result_N, result_P){
+  # 初始化一個空的向量來存儲結果
+  term_Description_N <- c()
+  # 將每個cell type pvalue最小的10個go term合併在一起
+  for(celltype in names(result_N)){
+    #從enrichResult物件中提取結果
+    result <- result_N[[celltype]]@result
+    # 根據p值對GO term進行排序，並取出p值最小的前10個
+    term <- result[order(result$p.adjust, decreasing = FALSE), ][1:10, ]
+    # 將description挑出來
+    descriptions <- term$Description
+    term_Description_N <- c(term_Description_N, descriptions)
+  }
+  # 把重複的description移除
+  term_Description_N <- unique(term_Description_N)
+  
+  # 初始化一個空的向量來存儲結果
+  term_Description_P <- c()
+  # 將每個cell type pvalue最小的10個go term合併在一起
+  for(celltype in names(result_P)){
+    #從enrichResult物件中提取結果
+    result <- result_P[[celltype]]@result
+    # 根據p值對GO term進行排序，並取出p值最小的前10個
+    term <- result[order(result$p.adjust, decreasing = FALSE), ][1:10, ]
+    # 將description挑出來
+    descriptions <- term$Description
+    term_Description_P <- c(term_Description_P, descriptions)
+  }
+  # 把重複的description移除
+  term_Description_P <- unique(term_Description_P)
+  
+  
+  # 合併Negative & Positive 的 Description
+  term_Description <- unique(c(term_Description_N, term_Description_P))
+  
+  
+  # 建立一個list要放N個cell type的Pvalue
+  term_Pvalue_N <- list()
+  # 把這個description與go_result match的GeneRatio挑出來
+  for(celltype in names(result_N)){
+    result <- result_N[[celltype]]@result
+    term_Pvalue_N[[celltype]] <- -log10(result$p.adjust[match(term_Description,result$Description)])
+    # 把NA轉成0
+    term_Pvalue_N[[celltype]][is.na(term_Pvalue_N[[celltype]])] <- 0
+  }
+  # 建立一個list要放N個cell type的Pvalue
+  term_Pvalue_P <- list()
+  # 把這個description與go_result match的GeneRatio挑出來
+  for(celltype in names(result_P)){
+    result <- result_P[[celltype]]@result
+    term_Pvalue_P[[celltype]] <- -log10(result$p.adjust[match(term_Description,result$Description)])
+    # 把NA轉成0
+    term_Pvalue_P[[celltype]][is.na(term_Pvalue_P[[celltype]])] <- 0
+  }
+  # 合併Negative & Positive 的 GeneRatio
+  term_Pvalue <- c(term_Pvalue_N, term_Pvalue_P)
+  
+  # 開始做heatmap的處理
+  matrix_heatmap <- do.call(rbind, term_Pvalue)
+  class(matrix_heatmap)
+  colnames(matrix_heatmap) <- term_Description
+  # 畫heatmap
+  pheatmap(t(matrix_heatmap), cluster_rows = TRUE, cluster_cols = FALSE, fontsize_row = 8, angle_col = 45)
+}
 
 #============================================================Main============================================================
 # confirm directory location
@@ -234,8 +300,13 @@ plot_results(kegg_results_P, "KEGG", "Positive")
 
 
 # GO heatmap
-create_heatmap(go_results_N, go_results_P) # 先放negative,再放 positive
+create_heatmap_GeneRatio(go_results_N, go_results_P) # 先放negative,再放 positive
 # KEGG heatmap
-create_heatmap(kegg_results_N, kegg_results_P) # 先放negative,再放 positive
+create_heatmap_GeneRatio(kegg_results_N, kegg_results_P) # 先放negative,再放 positive
 
 
+# 有取 -log10
+# GO heatmap
+create_heatmap_Pvalue(go_results_N, go_results_P) # 先放negative,再放 positive
+# KEGG heatmap
+create_heatmap_Pvalue(kegg_results_N, kegg_results_P) # 先放negative,再放 positive
