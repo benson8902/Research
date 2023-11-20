@@ -7,6 +7,7 @@ library(GO.db)
 # 載入ggplot2套件
 library(ggplot2)
 library(pheatmap)
+library(gridExtra)
 # Github token until Wed, Jan 17 2024
 #Sys.setenv(GITHUB_PAT = "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")
 # 安裝createKEGGdb包（用於創建KEGG.db的包）
@@ -213,22 +214,23 @@ create_heatmap_Pvalue <- function(result_N, result_P){
   }
   # 建立一個list要放N個cell type的Pvalue
   term_Pvalue_P <- list()
-  # 把這個description與go_result match的GeneRatio挑出來
+  # 把這個description與go_result match的Pvalue挑出來
   for(celltype in names(result_P)){
     result <- result_P[[celltype]]@result
     term_Pvalue_P[[celltype]] <- -log10(result$p.adjust[match(term_Description,result$Description)])
     # 把NA轉成0
     term_Pvalue_P[[celltype]][is.na(term_Pvalue_P[[celltype]])] <- 0
   }
-  # 合併Negative & Positive 的 GeneRatio
+  # 合併Negative & Positive 的 Pvalue
   term_Pvalue <- c(term_Pvalue_N, term_Pvalue_P)
   
   # 開始做heatmap的處理
   matrix_heatmap <- do.call(rbind, term_Pvalue)
   class(matrix_heatmap)
   colnames(matrix_heatmap) <- term_Description
+  
   # 畫heatmap
-  pheatmap(t(matrix_heatmap), cluster_rows = TRUE, cluster_cols = FALSE, fontsize_row = 8, angle_col = 45)
+   pheatmap(t(matrix_heatmap), cluster_rows = TRUE, cluster_cols = FALSE, fontsize_row = 8, angle_col = 45)
 }
 
 #============================================================Main============================================================
@@ -245,9 +247,9 @@ positive <- read.csv('pearson_positive_celltype_genes_top200.csv', na.strings = 
 
 
 # 提取cell type列表
-celltype_N <- sort(negative$X)
+celltype_N <- negative$X
 # 提取cell type列表
-celltype_P <- sort(positive$X)
+celltype_P <- positive$X
 # 初始化一個空的列表來存儲結果
 genes_N <- list()
 # 初始化一個空的列表來存儲結果
@@ -256,7 +258,7 @@ genes_P <- list()
 
 # 取得每個cell type的gene
 genes_N <- get_genes(celltype_N, negative)
-genes_P <- get_genes(celltype_N, positive)
+genes_P <- get_genes(celltype_P, positive)
 
 
 # list的index放上 cell type
