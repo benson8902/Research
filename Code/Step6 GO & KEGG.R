@@ -247,7 +247,7 @@ positive <- read.csv('pearson_positive_celltype_genes_top200.csv', na.strings = 
 # 提取cell type列表
 celltype_N <- sort(negative$X)
 # 提取cell type列表
-celltype_P <- (positive$X)
+celltype_P <- sort(positive$X)
 # 初始化一個空的列表來存儲結果
 genes_N <- list()
 # 初始化一個空的列表來存儲結果
