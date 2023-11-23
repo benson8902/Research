@@ -241,9 +241,9 @@ setwd("C:/Users/benson/Desktop/Research/")
 
 
 # 讀取.csv文件
-negative <- read.csv('pearson_negative_celltype_genes_top200.csv', na.strings = c("None",""))
+negative <- read.csv('pearson_negative_celltype_genes_top200_remove 0.5%.csv', na.strings = c("None",""))
 # 讀取.csv文件
-positive <- read.csv('pearson_positive_celltype_genes_top200.csv', na.strings = c("None",""))
+positive <- read.csv('pearson_positive_celltype_genes_top200_remove 0.5%.csv', na.strings = c("None",""))
 
 
 # 提取cell type列表
