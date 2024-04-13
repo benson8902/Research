@@ -18,7 +18,7 @@
     or
     2. nohup prefetch -p --option-file SRR_Acc_List.txt > nohup.out 2>&1 &
     or
-    3. cat SRR_Acc_List.txt | parallel -j 8 "prefetch -p {} > nohup.out 2>&1"
+    3. cat SRR_Acc_List.txt | parallel -j 8 "prefetch -p {} > nohup.out 2>&1 &"
     (Speed up download )
 
 
