@@ -10,10 +10,17 @@
 **Step 1 Download SRR file** 
 >    If file size too big, you need to use "--max-size 100G"
 >
+>    If we want to speed up download file, we can 『sudo apt-get install parallel』
+> 
+
     ex:
     1. prefetch -p --option-file SRR_Acc_List.txt
     or
     2. nohup prefetch -p --option-file SRR_Acc_List.txt > nohup.out 2>&1 &
+    or
+    3. cat SRR_Acc_List.txt | parallel -j 8 "prefetch -p {} > {}.out 2>&1"
+    (Speed up download )
+
 
 **Step 2 SRA -> fastq**
 
