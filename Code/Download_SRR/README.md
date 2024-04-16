@@ -58,6 +58,10 @@
 
     SRR_Acc_List.txt need to add new line, or the last file may not be excute.
 
+    If you can't find python 
+        first >> which python
+    If still can't find python, then 
+        export PATH=/home/benson0207/anaconda3/bin:/home/benson0207/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 **Version**
 >
