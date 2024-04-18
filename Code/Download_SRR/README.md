@@ -65,6 +65,9 @@
     If still can't find python, then 
         export PATH=/home/benson0207/anaconda3/bin:/home/benson0207/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
+    If you need to unzip file you may
+        gunzip run_count_pbmc_SRR23942*/outs/filtered_feature_bc_matrix/*.gz
+    
 **Version**
 >
 >**Anaconda:** Python 3.9.7
