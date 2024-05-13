@@ -2,12 +2,12 @@
 library(clusterProfiler)
 # 用於可以刪除我不要的列
 library(dplyr)
-library(org.Hs.eg.db)
+library(org.Hs.eg.db)#GO & KEGG annotation
 library(GO.db)
 # 載入ggplot2套件
 library(ggplot2)
-library(pheatmap)
-library(gridExtra)
+library(pheatmap)#heatmap
+library(gridExtra)# 多個圖表用在一個圖形
 # Github token until Wed, Jan 17 2024
 #Sys.setenv(GITHUB_PAT = "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")
 # 安裝createKEGGdb包（用於創建KEGG.db的包）
@@ -54,12 +54,13 @@ perform_GO_analysis <- function(ids, OrgDb = org.Hs.eg.db, ont = "BP", pAdjustMe
 }
 
 # 進行KEGG Enrichment analysis
-perform_KEGG_analysis <- function(ids, organism = 'hsa', pvalueCutoff = 0.05){
+perform_KEGG_analysis <- function(ids, organism = 'hsa', pvalueCutoff = 0.05, qvalueCutoff = 0.05){
   kegg_result <- list()
   for(i in names(ids)){
     kegg_result[[i]] <- enrichKEGG(gene         = ids[[i]]$ENTREZID,
                                    organism     = organism,
-                                   pvalueCutoff = pvalueCutoff)}
+                                   pvalueCutoff = pvalueCutoff,
+                                   qvalueCutoff = qvalueCutoff)}
   return(kegg_result)
 }
 
@@ -76,7 +77,7 @@ plot_results <- function(results, result_type, type) {
     # 繪製dotplot
     p = dotplot(result, showCategory = 10, font.size = 10) + ggtitle(paste0(celltype, " ", type, " ", result_type, " enrichment"))
     # 指定保存位置
-    filepath <- paste0("C:/Users/benson/Desktop/Research/Result_picture/GSE174188/Pearson/Top200/", result_type, "/", type, "/", celltype, "_", tolower(type), "_", result_type, "_enrichment.png")
+    filepath <- paste0("C:/Users/benson/Desktop/Research/Result_picture/Merge_data/Pearson/Top200/bbknn_database/", result_type, "/", type, "/", celltype, "_", tolower(type), "_", result_type, "_enrichment.png")
     # 保存圖片
     ggsave(filepath, plot = p, width = 5, height = 6)
   })
@@ -241,9 +242,9 @@ setwd("C:/Users/benson/Desktop/Research/")
 
 
 # 讀取.csv文件
-negative <- read.csv('pearson_negative_celltype_genes_top200_remove 0.5%.csv', na.strings = c("None",""))
+negative <- read.csv('pearson_negative_celltype_genes_GSE165080_GSE149689_GSE227991_top200_bbknn_database.csv', na.strings = c("None",""))
 # 讀取.csv文件
-positive <- read.csv('pearson_positive_celltype_genes_top200_remove 0.5%.csv', na.strings = c("None",""))
+positive <- read.csv('pearson_positive_celltype_genes_GSE165080_GSE149689_GSE227991_top200_bbknn_database.csv', na.strings = c("None",""))
 
 
 # 提取cell type列表
